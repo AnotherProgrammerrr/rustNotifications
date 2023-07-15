@@ -4,15 +4,15 @@ use std::env;
 use std::time::SystemTime;
 
 fn call_notification() {
-    let current_dir: std::path::PathBuf = env::current_dir().expect("couldn't get current dir");
-    let image_path: std::path::PathBuf = current_dir.join("image.png");
+    let mut image_path: std::path::PathBuf = env::current_dir().expect("couldn't get current dir");
+    image_path = image_path.join("image.png");
 
     Toast::new(Toast::POWERSHELL_APP_ID)
         .title("こんにちは Yamaha！")
         .icon(
             &image_path,
             IconCrop::Square,
-            " text",
+            "",
         )
         .text1("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧	")
         .sound(Some(Sound::SMS))
@@ -31,13 +31,11 @@ fn main() {
             .expect("couldn't retrieve system time");
     
         let seconds: u64 = current_local_time.as_secs();
-        let current_hour: u64 = ((seconds / 3600) % 24) - 3;
-        let current_minute: u64 = (seconds % 3600) / 60;
+        let time: [u64;2] = [((seconds / 3600) % 24) - 3, (seconds % 3600) / 60];
     
-        if current_hour == 13 && current_minute == 30 && repeat == true {
+        if time[0] == 13 && time[1] == 30 && repeat == true {
             call_notification();
             repeat = false;
-            
         }
     }
 }
