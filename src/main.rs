@@ -11,7 +11,7 @@ fn call_notification() {
         .title("こんにちは Yamaha！")
         .icon(
             &image_path,
-            IconCrop::Circular,
+            IconCrop::Square,
             " text",
         )
         .text1("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧	")
